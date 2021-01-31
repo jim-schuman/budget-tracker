@@ -1,23 +1,30 @@
 // eslint-disable-next-line import/no-anonymous-default-export
+
+import entriesTypes from '../actions/entries.actions';
+
 const reducer = (state = initialEntries, action) => {
 
     let newEntries;
     switch( action.type ) {
 
-        case 'UPDATE_ENTRY':
+        case entriesTypes.POPULATE_ENTRIES:
+            return action.payload
+
+        case entriesTypes.POPULATE_ENTRY_DETAILS:
+        case entriesTypes.UPDATE_ENTRY:
             newEntries = [...state];
             const index = newEntries.findIndex(entry => entry.id === action.payload.id);
-            newEntries[index] = {...action.payload.entry};
-        return newEntries;
+            newEntries[index] = {...newEntries[index], ...action.payload.entry};
+            return newEntries;
       
-        case 'ADD_ENTRY':
+        case entriesTypes.ADD_ENTRY:
             newEntries = state.concat({...action.payload});
-        return newEntries;
+            return newEntries;
 
-        case 'REMOVE_ENTRY':
+        case entriesTypes.REMOVE_ENTRY:
         
             newEntries = state.filter(entry => entry.id !== action.payload.id);
-        return newEntries;
+            return newEntries;
 
         default:
             return state;
@@ -26,41 +33,4 @@ const reducer = (state = initialEntries, action) => {
 };
 export default reducer;
 
-var initialEntries = [
-    {
-      id: 1,
-      description: "Work Income By Slave Labor",
-      value: Number(1500.00),
-      isExpense: false
-    },
-    {
-      id: 2,
-      description: "Electric Bill",
-      value: Number(200.35),
-      isExpense: true
-    },
-    {
-      id: 3,
-      description: "Check from Dad",
-      value: Number(1200.00),
-      isExpense: false
-    },
-    {
-      id: 4,
-      description: "Rent",
-      value: Number(900.00),
-      isExpense: true
-    },
-    {
-      id: 5,
-      description: "Phone Bill",
-      value: Number(198.57),
-      isExpense: true
-    },
-    {
-      id: 6,
-      description: "Visa",
-      value: Number(150.65),
-      isExpense: true
-    }
-  ];
+var initialEntries = [];

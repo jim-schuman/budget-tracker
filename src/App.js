@@ -7,7 +7,8 @@ import DisplayBalance from './components/DisplayBalance';
 import DisplayBalances from './components/DisplayBalances';
 import EntryLines from './components/EntryLines';
 import ModalEdit from './components/ModalEdit';
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {getAllEntries} from "./actions/entries.actions";
 
 function App() {
 
@@ -49,7 +50,11 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entries]);
 
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+      dispatch(getAllEntries());
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   return (
     
